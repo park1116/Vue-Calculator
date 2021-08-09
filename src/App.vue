@@ -4,7 +4,7 @@
             <p>
                 {{ fromData }} {{ exp }} {{ dataStr }}
             </p>
-            <p v-if="nowData != 0">
+            <p v-if="nowData != null">
                 = {{ nowData }}
             </p>
         </div>
@@ -38,7 +38,6 @@
                 </td>
             </tr>
             <tr>
-                <!-- <td><one-button v-bind=프롭스 속성이름:"상위컴포넌트 데이터 이름"></one-button></td> -->
                 <td>
                     <num-button num=1 v-on:num-click="numClick"></num-button>
                 </td>
@@ -84,16 +83,15 @@ export default {
     data: function(){
         return{
             dataStr: '',
-            nowData: 0,
-            fromData: 0,
-            exp: ''
+            nowData: null,
+            fromData: null,
+            exp: null
         }
     },
     components: {
         'num-button': NumButton
     },
     methods: {
-        // 현재 numClick이 문자로 인식되는 문제가 있음---------------------------------------------------------
         numClick: function(numClick) {
             this.dataStr += numClick;
         },
@@ -111,27 +109,40 @@ export default {
         },
         allCancel: function() {
             this.dataStr = '';
-            this.fromData = 0;
-            this.nowData = 0;
+            this.fromData = null;
+            this.nowData = null;
+            this.exp = null;
         },
         divClick: function() {
+            if(this.nowData == null)
+                this.fromData = parseInt(this.dataStr); 
+            else
+                this.fromData = this.nowData;
             this.exp = '/';
-            this.fromData = parseInt(this.dataStr); 
             this.dataStr = '';
         },
         mulClick: function() {
+            if(this.nowData == null)
+                this.fromData = parseInt(this.dataStr); 
+            else
+                this.fromData = this.nowData;
             this.exp = '*';
-            this.fromData = parseInt(this.dataStr);
             this.dataStr = '';
         },
         subClick: function() {
+            if(this.nowData == null)
+                this.fromData = parseInt(this.dataStr); 
+            else
+                this.fromData = this.nowData;
             this.exp = '-';
-            this.fromData = parseInt(this.dataStr);
             this.dataStr = '';
         },
         addClick: function() {
+            if(this.nowData == null)
+                this.fromData = parseInt(this.dataStr); 
+            else
+                this.fromData = this.nowData;
             this.exp = '+';
-            this.fromData = parseInt(this.dataStr);
             this.dataStr = '';
         }
     }
