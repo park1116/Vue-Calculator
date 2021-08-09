@@ -6,9 +6,7 @@
 
 <script>
 export default {
-    props: {
-        num: Number
-    },
+    props: ['num'],
     methods: {
         numClick: function() {
             this.$emit('num-click', this.num)
