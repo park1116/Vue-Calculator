@@ -1,6 +1,6 @@
 # **Vue-Calculator**
 ### Project Period
-- 2021.08.08 ~  2021.08.10
+- 2021.08.04 ~  2021.08.10
 ### Development Environment
 - Vue CLI 4.5.11
 ### Application main logic
