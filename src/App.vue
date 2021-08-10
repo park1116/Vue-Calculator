@@ -59,17 +59,10 @@
                     <num-button num=0 v-on:num-click="numClick"></num-button>
                 </td>
                 <td>
-                    <button v-on:click="oneCancel">◁</button>
+                    <button v-on:click="numCalculate">=</button>
                 </td>
                 <td>
                     <button v-on:click="addClick">+</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <button v-on:click="numCalculate">
-                        =
-                    </button>
                 </td>
             </tr>
         </table>
@@ -93,6 +86,8 @@ export default {
     },
     methods: {
         numClick: function(numClick) {
+            if(this.nowData != null)
+                this.allCancel();
             this.dataStr += numClick;
         },
         numCalculate: function() {
@@ -105,8 +100,6 @@ export default {
             else if(this.exp == '/')
                this.nowData = this.fromData / parseInt(this.dataStr);
         },
-        oneCancel: function() {
-        },
         allCancel: function() {
             this.dataStr = '';
             this.fromData = null;
@@ -114,36 +107,34 @@ export default {
             this.exp = null;
         },
         divClick: function() {
-            if(this.nowData == null)
-                this.fromData = parseInt(this.dataStr); 
-            else
-                this.fromData = this.nowData;
+            this.numCalculating();
             this.exp = '/';
             this.dataStr = '';
         },
         mulClick: function() {
-            if(this.nowData == null)
-                this.fromData = parseInt(this.dataStr); 
-            else
-                this.fromData = this.nowData;
+            this.numCalculating();
             this.exp = '*';
             this.dataStr = '';
         },
         subClick: function() {
-            if(this.nowData == null)
-                this.fromData = parseInt(this.dataStr); 
-            else
-                this.fromData = this.nowData;
+            this.numCalculating();
             this.exp = '-';
             this.dataStr = '';
         },
         addClick: function() {
-            if(this.nowData == null)
-                this.fromData = parseInt(this.dataStr); 
-            else
-                this.fromData = this.nowData;
+            this.numCalculating();
             this.exp = '+';
             this.dataStr = '';
+        },
+        numCalculating: function() {
+            if(this.nowData == null){
+                if(this.dataStr != '')
+                   this.fromData = parseInt(this.dataStr); 
+            }
+            else {
+                this.fromData = this.nowData;
+                this.nowData = null;
+            }
         }
     }
 }
